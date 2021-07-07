@@ -1,89 +1,87 @@
 # CoolStore Monolith
 
-This repository has the complete coolstore monolith built as a Java EE 7 application. To deploy it on OpenShift Container Platform (OCP) follow the instructions below
+This repository has the complete coolstore monolith built as a Jakarta EE 8 application. To deploy it on Azure App Service follow the instructions below
 
 
-## Pre requisite
+## Prerequisites
 
-* Access to a OCP cluster using 3.5 or later.
-* OpenShift Command Client tool (eg. oc) installed locally
-* Authenticated from the command line client to the cluster
+* A deployed JBoss EAP Web App on [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/)
+ * Use either Java 8 or Java 11 for the Runtime Stack, and JBoss EAP 7 as the Java Web Server Stack, and Premium V3 or Isolated V2 Sku. [More Information](https://docs.microsoft.com/en-us/azure/developer/java/ee/jboss-on-azure)
+* Azure Command Client tool (`az`) and logged in via `az login`
 
-        oc login <url>
+## Build and deploy to Azure App Service
 
+Clone the project to a local directory:
 
-## Build and deploy using the GitHub repo
-To build and deploy using the github repo there is no need to clone this repo locally. All that is required is to create a project and process and create the application according to the template. 
+```sh
+$ git clone [this repo] appservice-coolstore
+$ cd appservice-coolstore
+```
 
-NOTE: A source deployment takes longer than a binary deployment
+Build the project:
 
-Create a new project (or use an existing)
+```sh
+$ mvn clean package
+```
 
-    oc new-project coolstore
+Deploy to your JBoss EAP App Service:
 
-Deploy and start the build
+```sh
+$ az webapp deploy --name [appname] --resource-group [resource group name] --src-path target/app.war
+```
 
-    oc process -f https://raw.githubusercontent.com/coolstore/monolith/master/src/main/openshift/template.json | oc create -f -
+You should see a successful JSON response (with `"complete": true` and `"active": true`):
 
-## Build and deploy using the binary deployment
+```json
+{
+  "active": true,
+  "author": "N/A",
+  "author_email": "N/A",
+  "complete": true,
+  "deployer": "OneDeploy",
+  "end_time": "...",
+  "id": "...",
+  "is_readonly": true,
+  "is_temp": false,
+  "last_success_end_time": "...",
+  "log_url": "https://[appname].scm.azurewebsites.net/api/deployments/latest/log",
+  "message": "OneDeploy",
+  "progress": "",
+  "received_time": "...",
+  "site_name": "...",
+  "start_time": "...",
+  "status": 4,
+  "status_text": "",
+  "url": "https://[appname].scm.azurewebsites.net/api/deployments/latest"
+}
+```
 
-Clone the project to a local directory
+Wait a minute or so as the service is restarted with the updates. Visit the App URL to see the finished product:
 
-    git clone https://github.com/coolstore/monolith.git coolstore-monolith
-    cd coolstore-monolith
+![Store](src/main/webapp/app/imgs/store.png)
 
-Build the project using openshift profile 
-
-    mvn -Popenshift package
-
-Create a new project (or use an existing)
-
-    oc new-project coolstore
-
-Create the app
-
-    oc process -f src/main/openshift/template-binary.json | oc create -f -
-
-Start the build
-
-    oc start-build coolstore --from-file=deployments/ROOT.war
-    
-To deploy the production environment and Jenkins pipeline
-
-    oc process -f src/main/openshift/template-prod.json | oc create -f -
-    
-Manually start the pipeline
-
-    oc start-build monolith-pipeline
-
-
-
-# Run standalone
+## Run standalone
 
 The application can also be deploy to a local JBoss EAP, which is great for development, but requires JMS Queues etc to be configured. The `pom.xml` does however support adding that through the `maven-wildfly-plugin`.
 
-## First time
-
 1. Download JBoss EAP 7.x from [developers.redhat.com](https://developers.redhat.com/products/eap/download/).
-1. Unzip the installation in a suitable locations (e.g. /opt)
-1. Set the JBOSS_HOME environment variable (in windows right click on my computer and add system environment variable)
+2. Unzip the installation in a suitable locations (e.g. `/opt`)
+3. Set the `JBOSS_HOME` environment variable (in Windows right click on my computer and add system environment variable)
 
-        export JBOSS_HOME=/opt/jboss-eap-7.0
+```sh
+$ export JBOSS_HOME=/opt/jboss-eap-7.3
+```
 
-1. Run the following maven command
+4. Run the following maven command
 
-        mvn clean package wildfly:start wildfly:add-resource wildfly:deploy
+```sh
+$ mvn clean package wildfly:start wildfly:add-resource wildfly:deploy
+```
 
-1. Test the application by going to http://localhost:8080
-1. To stop the application run the following command
+5. Test the application by going to `http://localhost:8080`
 
-        mvn wildfly:shutdown
+6. To stop the application run the following command
 
-## Second time
-
-If you want to redeploy the application there is no need to use the `wildfly:add-resource` goal and if the JBoss is running then there is also possible to skip `wildfly:start` and just execute the following command
-
-        mvn clean package wildfly:deploy
-
-
- 
+```sh
+$ mvn wildfly:shutdown
+```
