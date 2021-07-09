@@ -15,6 +15,9 @@ import javax.persistence.PersistenceContext;
 
 import com.redhat.coolstore.model.*;
 
+import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Timer;
+
 @Stateless
 public class CatalogService {
 
@@ -24,6 +27,8 @@ public class CatalogService {
     @PersistenceContext
     private EntityManager em;
 
+    Timer timer = Metrics.timer("CatalogTimer");
+
     public CatalogService() {
     }
 
@@ -32,7 +37,9 @@ public class CatalogService {
         CriteriaQuery<CatalogItemEntity> criteria = cb.createQuery(CatalogItemEntity.class);
         Root<CatalogItemEntity> member = criteria.from(CatalogItemEntity.class);
         criteria.select(member);
-        return em.createQuery(criteria).getResultList();
+        return timer.record( () -> {
+            return em.createQuery(criteria).getResultList();
+        });
     }
 
     public CatalogItemEntity getCatalogItemById(String itemId) {
