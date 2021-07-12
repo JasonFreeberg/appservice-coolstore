@@ -10,7 +10,7 @@ insert into INVENTORY (itemId, link, location, quantity) values ('444437', 'http
 
 insert into PRODUCT_CATALOG (itemId, name, description, price) values ('329299', 'Quarkus T-shirt', '', 10.00);
 insert into PRODUCT_CATALOG (itemId, name, description, price) values ('329199', 'Pronounced Kubernetes', '', 9.00);
-insert into PRODUCT_CATALOG (itemId, name, description, price) values ('165613', 'Knit socks', '',4.15);
+insert into PRODUCT_CATALOG (itemId, name, description, price) values ('165613', 'Microsoft T-shirt', '',4.15);
 insert into PRODUCT_CATALOG (itemId, name, description, price) values ('165614', 'Quarkus H2Go water bottle', '', 14.45);
 insert into PRODUCT_CATALOG (itemId, name, description, price) values ('165954', 'Patagonia Refugio pack 28L', '', 6.00);
 insert into PRODUCT_CATALOG (itemId, name, description, price) values ('444434', 'Red Hat Impact T-shirt', '', 9.00);
