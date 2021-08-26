@@ -8,7 +8,7 @@
         "RESOURCE_GROUP": ""
     },
 
-    // "dockerFile": "Dockerfile",
+    "dockerFile": "Dockerfile",
     "remoteUser": "vscode",
     "extensions": [
         "ms-vscode.azure-account",
