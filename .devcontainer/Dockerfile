@@ -37,6 +37,7 @@ ENV LAUNCH_JBOSS_IN_BACKGROUND true
 USER root
 
 RUN mkdir -p ${JBOSS_HOME}
+RUN echo "Installing Wildfly..."
 RUN cd $HOME \
     && curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz \
     && sha1sum wildfly-$WILDFLY_VERSION.tar.gz | grep $WILDFLY_SHA1 \
