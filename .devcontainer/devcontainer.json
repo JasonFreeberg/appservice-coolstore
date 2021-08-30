@@ -16,9 +16,5 @@
 		"vscjava.vscode-java-pack",
 		"vscjava.vscode-java-debug",
         "redhat.mta-vscode-extension"
-    ],
-    "forwardPorts": [
-        8080,
-        9990
     ]
 }
