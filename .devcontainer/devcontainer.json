@@ -12,7 +12,6 @@
     "remoteUser": "vscode",
     "extensions": [
         "ms-vscode.azure-account",
-		"redhat.java",
 		"vscjava.vscode-java-pack",
 		"vscjava.vscode-java-debug",
         "redhat.mta-vscode-extension"
