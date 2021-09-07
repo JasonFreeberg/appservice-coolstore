@@ -9,6 +9,22 @@ This repository has the complete coolstore monolith built as a Jakarta EE 8 appl
  * Use either Java 8 or Java 11 for the Runtime Stack, and JBoss EAP 7 as the Java Web Server Stack, and Premium V3 or Isolated V2 Sku. [More Information](https://docs.microsoft.com/en-us/azure/developer/java/ee/jboss-on-azure)
 * Azure Command Client tool (`az`) and logged in via `az login`
 
+## Creating a Web App deployment using `az`
+
+If you haven't yet created an app service instance, you can do so with the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service/quickstart-java?tabs=jbosseap&pivots=platform-linux), the [Azure App Service Maven Plugin](https://docs.microsoft.com/en-us/azure/app-service/quickstart-java?tabs=jbosseap&pivots=platform-linux#configure-the-maven-plugin), or for the impatient, by using these `az` commands:
+
+```sh
+# Create new resource group in eastus location - you may want to use a different location
+$ az group create --location eastus --resource-group eap-demo-rg
+
+# Create a new app service plan in the resource group with the P1V3 SKU
+$ az appservice plan create -g eap-demo-rg -n eap-demo-plan --is-linux --sku P1V3
+
+# Create a new JBoss EAP app service (note that the name specified by -n
+# may need to be changed in case someone else is using it)
+$ az webapp create -g eap-demo-rg -p eap-demo-plan -n my-eap-demo -r 'JBOSSEAP|7.3-java11'
+```
+
 ## Build and deploy to Azure App Service
 
 Clone the project to a local directory:
@@ -27,7 +43,7 @@ $ mvn clean package
 Deploy to your JBoss EAP App Service:
 
 ```sh
-$ az webapp deploy --name [appname] --resource-group [resource group name] --src-path target/app.war
+$ az webapp deploy --name [appname] --resource-group [resource group name] --src-path target/ROOT.war
 ```
 
 You should see a successful JSON response (with `"complete": true` and `"active": true`):
