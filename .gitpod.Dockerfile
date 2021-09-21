@@ -29,7 +29,7 @@ RUN cd $HOME \
     && tar xf wildfly-$WILDFLY_VERSION.tar.gz \
     && mv $HOME/wildfly-$WILDFLY_VERSION $JBOSS_HOME \
     && rm wildfly-$WILDFLY_VERSION.tar.gz \
-    && chown -R vscode:0 ${JBOSS_HOME} \
+    && chown -R gitpod:0 ${JBOSS_HOME} \
     && chmod -R g+rw ${JBOSS_HOME}
 
 USER gitpod
