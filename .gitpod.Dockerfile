@@ -3,7 +3,7 @@ FROM gitpod/workspace-full:latest
 USER gitpod
 
 # Install custom tools, runtime, etc.
-RUN brew install az openjdk@11
+RUN brew install az
 
 ENV JAVA_HOME="/home/linuxbrew/.linuxbrew/opt/openjdk@11"
 ENV PATH="$JAVA_HOME/bin:$PATH"
