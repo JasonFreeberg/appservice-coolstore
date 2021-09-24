@@ -12,13 +12,11 @@ import com.redhat.coolstore.model.Promotion;
 import com.redhat.coolstore.model.ShoppingCart;
 import com.redhat.coolstore.model.ShoppingCartItem;
 
-//import java.util.logging.Logger;
 import weblogic.i18n.logging.NonCatalogLogger;
 
 @ApplicationScoped
 public class PromoService implements Serializable {
 
-//    private Logger log = Logger.getLogger(PromoService.class.getName());
     private NonCatalogLogger log = new NonCatalogLogger(PromoService.class.getName());
 
     private static final long serialVersionUID = 2088590587856645568L;
