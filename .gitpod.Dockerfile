@@ -3,7 +3,7 @@ FROM gitpod/workspace-full:latest
 USER gitpod
 
 # Install custom tools, runtime, etc.
-RUN brew install az
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 RUN wget -O /tmp/openjdk-11+28_linux-x64_bin.tar.gz https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz && rm -rf /home/gitpod/.sdkman/candidates/java/11.0.12.fx-zulu/* && cd /home/gitpod/.sdkman/candidates/java/11.0.12.fx-zulu/ && tar -xzvf /tmp/openjdk-11+28_linux-x64_bin.tar.gz && mv jdk-11/* . && rm -rf jdk-11/ /tmp/openjdk-11+28_linux-x64_bin.tar.gz 
 
