@@ -8,7 +8,7 @@ USER gitpod
 RUN wget -O /tmp/openjdk-11+28_linux-x64_bin.tar.gz https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz && rm -rf /home/gitpod/.sdkman/candidates/java/11.0.12.fx-zulu/* && cd /home/gitpod/.sdkman/candidates/java/11.0.12.fx-zulu/ && tar -xzvf /tmp/openjdk-11+28_linux-x64_bin.tar.gz && mv jdk-11/* . && rm -rf jdk-11/ /tmp/openjdk-11+28_linux-x64_bin.tar.gz 
 
 ## Wildfly  (https://github.com/jboss-dockerfiles/wildfly/blob/master/Dockerfile)
-ENV WILDFLY_VERSION 25.0.0.Final
+ENV WILDFLY_VERSION 24.0.1.Final
 ENV JBOSS_HOME /opt/jboss/wildfly
 ENV WILDFLY_SHA1 751e3ff9128a6fbe72016552a9b864f729a710cc
 ENV LAUNCH_JBOSS_IN_BACKGROUND true
