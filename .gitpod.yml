@@ -1,5 +1,5 @@
-image:
-  file: .gitpod.Dockerfile
+image: quay.io/jfalkner1/gitpod-test:latest
+
 ports:
   - port: 8080
     onOpen: open-preview
