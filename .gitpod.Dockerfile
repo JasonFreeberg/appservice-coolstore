@@ -42,6 +42,10 @@ RUN curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/sl
 RUN curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64 \
     && chmod +x /usr/local/bin/docker-compose
 
+# Azure CLI
+
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
 # Wildfly  (https://github.com/jboss-dockerfiles/wildfly/blob/master/Dockerfile)
 ENV WILDFLY_VERSION 24.0.1.Final
 ENV JBOSS_HOME /opt/jboss/wildfly
