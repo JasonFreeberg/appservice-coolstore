@@ -47,6 +47,7 @@ request.getSession(true);
 </head>
 
 <body>
+	<p>TEST FROM GITHUB ACTIONS</p>
 	<div header></div>
 	<pf-notification-list></pf-notification-list>
 	<div ng-view></div>
